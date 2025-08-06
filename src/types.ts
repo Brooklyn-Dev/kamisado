@@ -1,12 +1,12 @@
 export class Colour {
-	static ORANGE = "#ff6900";
-	static BLUE = "#2b7fff";
-	static PURPLE = "#ad46ff";
-	static PINK = "#f6339a";
-	static YELLOW = "#f0b100";
-	static RED = "#fb2c36";
-	static GREEN = "#00c950";
-	static BROWN = "#973c00";
+	static ORANGE = "#F57C00";
+	static BLUE = "#1976D2";
+	static PURPLE = "#7B1FA2";
+	static PINK = "#C2185B";
+	static YELLOW = "#FBC02D";
+	static RED = "#D32F2F";
+	static GREEN = "#388E3C";
+	static BROWN = "#5D4037";
 
 	static #colourToName = new Map();
 	static #nameToColour = new Map();

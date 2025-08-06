@@ -44,4 +44,46 @@ export class Board {
 	getTowerAt(row: number, col: number): Tower | null {
 		return this.#board[row][col];
 	}
+
+	getMoves(row: number, col: number): { row: number; col: number }[] {
+		const tower = this.getTowerAt(row, col);
+		if (!tower) return [];
+
+		const moves = [];
+
+		const directions = [
+			{ dr: 1, dc: 0 },
+			{ dr: -1, dc: 0 },
+			{ dr: 0, dc: 1 },
+			{ dr: 0, dc: -1 },
+		];
+
+		for (const { dr, dc } of directions) {
+			for (let i = 1; i < 8; i++) {
+				const newRow = row + dr * i;
+				const newCol = col + dc * i;
+
+				if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
+
+				if (this.getTowerAt(newRow, newCol)) break;
+
+				moves.push({ row: newRow, col: newCol });
+			}
+		}
+
+		return moves;
+	}
+
+	canMoveTower(fromRow: number, fromCol: number, toRow: number, toCol: number): boolean {
+		const tower = this.getTowerAt(fromRow, fromCol);
+		if (!tower) return false;
+
+		return this.getMoves(fromRow, fromCol).some(({ row, col }) => row === toRow && col === toCol);
+	}
+
+	moveTower(fromRow: number, fromCol: number, toRow: number, toCol: number) {
+		const tower = this.getTowerAt(fromRow, fromCol);
+		this.#board[toRow][toCol] = tower;
+		this.#board[fromRow][fromCol] = null;
+	}
 }
