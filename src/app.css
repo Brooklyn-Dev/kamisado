@@ -29,8 +29,19 @@ h1 {
 }
 
 .square.valid-move {
-	opacity: 50%;
+	position: relative;
 	cursor: pointer;
+}
+
+.square.valid-move::after {
+	content: "";
+	position: absolute;
+	width: 35%;
+	height: 35%;
+	border-radius: 999px;
+	background-color: black;
+	opacity: 30%;
+	pointer-events: none;
 }
 
 .tower {
