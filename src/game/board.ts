@@ -16,8 +16,10 @@ export class Board {
         [Colour.BROWN, Colour.GREEN, Colour.RED, Colour.YELLOW, Colour.PINK, Colour.PURPLE, Colour.BLUE, Colour.ORANGE]
     ];
 
-	constructor() {
+	constructor(skipInit: boolean = false) {
 		this.#board = Array.from({ length: 8 }, () => Array(8).fill(null));
+
+		if (skipInit) return;
 		this.#initTowers();
 	}
 
@@ -91,8 +93,25 @@ export class Board {
 		this.#board[fromRow][fromCol] = null;
 	}
 
+	findTowerByColour(colour: string, player: 1 | 2): { row: number; col: number } | null {
+		for (let row = 0; row < 8; row++) {
+			for (let col = 0; col < 8; col++) {
+				const tower = this.getTowerAt(row, col);
+				if (
+					tower &&
+					(tower.getColourName() === colour || tower.getColour() === colour) &&
+					tower.getPlayer() === player
+				) {
+					return { row, col };
+				}
+			}
+		}
+
+		return null;
+	}
+
 	clone(): Board {
-		const newBoard = new Board();
+		const newBoard = new Board(true);
 
 		for (let row = 0; row < 8; row++) {
 			for (let col = 0; col < 8; col++) {

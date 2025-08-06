@@ -37,6 +37,7 @@ export class GameState {
 		this.#board.moveTower(fromRow, fromCol, toRow, toCol);
 
 		this.#currentPlayer = this.#currentPlayer === 1 ? 2 : 1;
+		this.#activeColour = this.#board.getSquareColourName(toRow, toCol);
 		this.#movesMade++;
 
 		return true;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { GameState } from "../game/gameState";
 
 interface BoardProps {
@@ -12,6 +12,12 @@ export function Board({ gameState, onMove }: BoardProps) {
 
 	const board = gameState.getBoard();
 
+	useEffect(() => {
+		if (!gameState.isFirstMove()) {
+			autoSelectNextTower();
+		}
+	}, [gameState]);
+
 	function clearSelection() {
 		setSelectedSquare(null);
 		setValidMoves(new Set());
@@ -24,14 +30,43 @@ export function Board({ gameState, onMove }: BoardProps) {
 		setValidMoves(moveSet);
 	}
 
+	function autoSelectNextTower() {
+		const activeColour = gameState.getActiveColour();
+		if (!activeColour) {
+			clearSelection();
+			return;
+		}
+
+		const currentPlayer = gameState.getCurrentPlayer();
+
+		const towerCoords = board.findTowerByColour(activeColour, currentPlayer);
+		if (!towerCoords) {
+			clearSelection();
+			return;
+		}
+
+		selectSquare(towerCoords.row, towerCoords.col);
+	}
+
 	function handleSquareClick(row: number, col: number) {
 		const clickedTower = board.getTowerAt(row, col);
 		const currentPlayer = gameState.getCurrentPlayer();
 
+		if (!clickedTower || clickedTower.getPlayer() !== currentPlayer) {
+			if (selectedSquare && validMoves.has(`${row},${col}`)) {
+				const { row: fromRow, col: fromCol } = selectedSquare;
+				const success = onMove(fromRow, fromCol, row, col);
+				if (success) {
+					clearSelection();
+				}
+			}
+
+			return;
+		}
+
 		if (gameState.isFirstMove()) {
 			if (selectedSquare) {
 				const isValidMove = validMoves.has(`${row},${col}`);
-
 				if (isValidMove) {
 					const { row: fromRow, col: fromCol } = selectedSquare;
 					const success = onMove(fromRow, fromCol, row, col);
@@ -39,15 +74,17 @@ export function Board({ gameState, onMove }: BoardProps) {
 						clearSelection();
 					}
 				} else {
-					if (clickedTower && clickedTower.getPlayer() === currentPlayer) {
-						selectSquare(row, col);
-					} else {
-						clearSelection();
-					}
+					selectSquare(row, col);
 				}
 			} else {
-				if (clickedTower && clickedTower.getPlayer() === currentPlayer) {
-					selectSquare(row, col);
+				selectSquare(row, col);
+			}
+		} else {
+			if (selectedSquare && validMoves.has(`${row},${col}`)) {
+				const { row: fromRow, col: fromCol } = selectedSquare;
+				const success = onMove(fromRow, fromCol, row, col);
+				if (success) {
+					clearSelection();
 				}
 			}
 		}
