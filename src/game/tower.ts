@@ -13,24 +13,37 @@ export class Tower {
 		this.#col = col;
 	}
 
-	getColour() {
+	getColour(): string {
 		return this.#colour;
 	}
 
-	getColourName() {
+	getColourName(): string {
 		return Colour.getName(this.#colour);
 	}
 
-	getPlayer() {
+	getPlayer(): 1 | 2 {
 		return this.#player;
 	}
 
-	getRowCol() {
+	getRow(): number {
+		return this.#row;
+	}
+
+	getCol(): number {
+		return this.#col;
+	}
+
+	getRowCol(): { row: number; col: number } {
 		return { row: this.#row, col: this.#col };
 	}
 
 	moveTo(row: number, col: number) {
 		this.#row = row;
 		this.#col = col;
+	}
+
+	clone(): Tower {
+		const newTower = new Tower(this.#colour, this.#player, this.#row, this.#col);
+		return newTower;
 	}
 }

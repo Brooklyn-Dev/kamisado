@@ -86,4 +86,19 @@ export class Board {
 		this.#board[toRow][toCol] = tower;
 		this.#board[fromRow][fromCol] = null;
 	}
+
+	clone(): Board {
+		const newBoard = new Board();
+
+		for (let row = 0; row < 8; row++) {
+			for (let col = 0; col < 8; col++) {
+				const tower = this.getTowerAt(row, col);
+				if (tower) {
+					newBoard.#board[row][col] = tower.clone();
+				}
+			}
+		}
+
+		return newBoard;
+	}
 }

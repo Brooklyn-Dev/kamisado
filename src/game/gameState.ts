@@ -36,8 +36,18 @@ export class GameState {
 
 		this.#board.moveTower(fromRow, fromCol, toRow, toCol);
 
+		this.#currentPlayer = this.#currentPlayer === 1 ? 2 : 1;
 		this.#movesMade++;
 
 		return true;
+	}
+
+	clone(): GameState {
+		const newGameState = new GameState();
+		newGameState.#board = this.#board.clone();
+		newGameState.#currentPlayer = this.#currentPlayer;
+		newGameState.#activeColour = this.#activeColour;
+		newGameState.#movesMade = this.#movesMade;
+		return newGameState;
 	}
 }
