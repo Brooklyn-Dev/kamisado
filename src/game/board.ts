@@ -89,7 +89,9 @@ export class Board {
 		this.#board[fromRow][fromCol] = null;
 	}
 
-	findTowerByColour(colour: string, player: 1 | 2): { row: number; col: number } | null {
+	findTowerByColour(colour: string | null, player: 1 | 2): { row: number; col: number } | null {
+		if (!colour) return null;
+
 		for (let row = 0; row < 8; row++) {
 			for (let col = 0; col < 8; col++) {
 				const tower = this.getTowerAt(row, col);

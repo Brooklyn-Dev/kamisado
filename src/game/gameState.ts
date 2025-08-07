@@ -6,6 +6,7 @@ export class GameState {
 	#activeColour: string | null = null;
 	#movesMade: number = 0;
 	#winner: 1 | 2 | null = null;
+	#lastMover: 1 | 2 | null = null;
 
 	constructor() {
 		this.#board = new Board();
@@ -46,6 +47,7 @@ export class GameState {
 
 		this.#board.moveTower(fromRow, fromCol, toRow, toCol);
 		this.#movesMade++;
+		this.#lastMover = this.#currentPlayer;
 
 		this.#checkWinner(toRow);
 		if (this.#winner) return true;
@@ -59,9 +61,12 @@ export class GameState {
 			if (moves.length === 0) {
 				this.#movesMade++;
 				this.#currentPlayer = this.#currentPlayer === 1 ? 2 : 1;
+				this.#lastMover = this.#currentPlayer;
 				this.#activeColour = this.#board.getSquareColourName(towerCoords.row, towerCoords.col);
 			}
 		}
+
+		this.#checkDeadlock();
 
 		return true;
 	}
@@ -74,12 +79,24 @@ export class GameState {
 		}
 	}
 
+	#checkDeadlock() {
+		const towerCoords = this.#board.findTowerByColour(this.#activeColour, this.#currentPlayer);
+		if (towerCoords) {
+			const currentMoves = this.#board.getMoves(towerCoords.row, towerCoords.col);
+			if (currentMoves.length === 0) {
+				this.#winner = this.#lastMover === 1 ? 2 : 1;
+			}
+		}
+	}
+
 	clone(): GameState {
 		const newGameState = new GameState();
 		newGameState.#board = this.#board.clone();
 		newGameState.#currentPlayer = this.#currentPlayer;
 		newGameState.#activeColour = this.#activeColour;
 		newGameState.#movesMade = this.#movesMade;
+		newGameState.#winner = this.#winner;
+		newGameState.#lastMover = this.#lastMover;
 		return newGameState;
 	}
 }
