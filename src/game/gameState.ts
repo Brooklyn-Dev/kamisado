@@ -45,19 +45,28 @@ export class GameState {
 		if (!this.#board.canMoveTower(fromRow, fromCol, toRow, toCol)) return false;
 
 		this.#board.moveTower(fromRow, fromCol, toRow, toCol);
+		this.#movesMade++;
 
-		this.#checkWinner(toRow, toCol);
+		this.#checkWinner(toRow);
+		if (this.#winner) return true;
 
-		if (!this.#winner) {
-			this.#currentPlayer = this.#currentPlayer === 1 ? 2 : 1;
-			this.#activeColour = this.#board.getSquareColourName(toRow, toCol);
+		this.#currentPlayer = this.#currentPlayer === 1 ? 2 : 1;
+		this.#activeColour = this.#board.getSquareColourName(toRow, toCol);
+
+		const towerCoords = this.#board.findTowerByColour(this.#activeColour, this.#currentPlayer);
+		if (towerCoords) {
+			const moves = this.#board.getMoves(towerCoords.row, towerCoords.col);
+			if (moves.length === 0) {
+				this.#movesMade++;
+				this.#currentPlayer = this.#currentPlayer === 1 ? 2 : 1;
+				this.#activeColour = this.#board.getSquareColourName(towerCoords.row, towerCoords.col);
+			}
 		}
 
-		this.#movesMade++;
 		return true;
 	}
 
-	#checkWinner(row: number, col: number) {
+	#checkWinner(row: number) {
 		if (row === 0 && this.#currentPlayer === 1) {
 			this.#winner = 1;
 		} else if (row === 7 && this.#currentPlayer === 2) {
