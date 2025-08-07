@@ -22,7 +22,11 @@ function App() {
 			<div>
 				<h1>Kamisado</h1>
 
-				<h2>{winner ? `Player ${winner} wins!` : `Player ${gameState.getCurrentPlayer()}'s turn`}</h2>
+				<h2>
+					{winner
+						? `${winner === 1 ? "Black" : "White"} wins!`
+						: `${gameState.getCurrentPlayer() === 1 ? "Black" : "White"}'s turn`}
+				</h2>
 
 				<div className="board-container">
 					<Board gameState={gameState} onMove={winner ? () => false : handleMove} />

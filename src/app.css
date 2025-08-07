@@ -66,11 +66,11 @@ h2 {
 }
 
 .tower.player-1 {
-	background-color: white;
+	background-color: black;
 }
 
 .tower.player-2 {
-	background-color: black;
+	background-color: white;
 }
 
 .tower.selected {
