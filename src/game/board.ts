@@ -53,15 +53,12 @@ export class Board {
 
 		const moves = [];
 
+		const forwardDir = tower.getPlayer() === 1 ? -1 : 1;
+
 		const directions = [
-			{ dr: 1, dc: 0 },
-			{ dr: -1, dc: 0 },
-			{ dr: 0, dc: 1 },
-			{ dr: 0, dc: -1 },
-			{ dr: 1, dc: 1 },
-			{ dr: -1, dc: -1 },
-			{ dr: 1, dc: -1 },
-			{ dr: -1, dc: 1 },
+			{ dr: forwardDir, dc: 0 },
+			{ dr: forwardDir, dc: 1 },
+			{ dr: forwardDir, dc: -1 },
 		];
 
 		for (const { dr, dc } of directions) {
@@ -70,7 +67,6 @@ export class Board {
 				const newCol = col + dc * i;
 
 				if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
-
 				if (this.getTowerAt(newRow, newCol)) break;
 
 				moves.push({ row: newRow, col: newCol });

@@ -55,7 +55,7 @@ h1 {
 	border-radius: 999px;
 	cursor: default;
 	user-select: none;
-	transition: all 0.2s ease;
+	transition: all 0.3s ease;
 }
 
 .tower.player-1 {
