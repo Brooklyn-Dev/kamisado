@@ -15,12 +15,17 @@ function App() {
 		return success;
 	}
 
+	const winner = gameState.getWinner();
+
 	return (
 		<>
 			<div>
 				<h1>Kamisado</h1>
+
+				<h2>{winner ? `Player ${winner} wins!` : `Player ${gameState.getCurrentPlayer()}'s turn`}</h2>
+
 				<div className="board-container">
-					<Board gameState={gameState} onMove={handleMove} />
+					<Board gameState={gameState} onMove={winner ? () => false : handleMove} />
 				</div>
 			</div>
 		</>

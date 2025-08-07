@@ -5,6 +5,13 @@ h1 {
 	margin: 2rem 0;
 }
 
+h2 {
+	font-size: 2.4rem;
+	font-weight: 400;
+	text-align: center;
+	margin: 2rem 0;
+}
+
 .board-container {
 	display: flex;
 	align-self: center;
