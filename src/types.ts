@@ -2,7 +2,7 @@ export class Colour {
 	static ORANGE = "#F57C00";
 	static BLUE = "#1976D2";
 	static PURPLE = "#7B1FA2";
-	static PINK = "#C2185B";
+	static PINK = "#FF80AB";
 	static YELLOW = "#FBC02D";
 	static RED = "#D32F2F";
 	static GREEN = "#388E3C";

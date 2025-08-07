@@ -12,7 +12,7 @@ export class Board {
         [Colour.PINK, Colour.PURPLE, Colour.BLUE, Colour.ORANGE, Colour.BROWN, Colour.GREEN, Colour.RED, Colour.YELLOW],
         [Colour.YELLOW, Colour.RED, Colour.GREEN, Colour.BROWN, Colour.ORANGE, Colour.BLUE, Colour.PURPLE, Colour.PINK],
         [Colour.BLUE, Colour.YELLOW, Colour.BROWN, Colour.PURPLE, Colour.RED, Colour.ORANGE, Colour.PINK, Colour.GREEN],
-        [Colour.PURPLE, Colour.BROWN, Colour.YELLOW, Colour.BLUE, Colour.GREEN, Colour.YELLOW, Colour.ORANGE, Colour.RED],
+        [Colour.PURPLE, Colour.BROWN, Colour.YELLOW, Colour.BLUE, Colour.GREEN, Colour.PINK, Colour.ORANGE, Colour.RED],
         [Colour.BROWN, Colour.GREEN, Colour.RED, Colour.YELLOW, Colour.PINK, Colour.PURPLE, Colour.BLUE, Colour.ORANGE]
     ];
 
