@@ -15,21 +15,34 @@ function App() {
 		return success;
 	}
 
+	function handleReset() {
+		setGameState(new GameState());
+	}
+
 	const winner = gameState.getWinner();
 
 	return (
 		<>
-			<div>
-				<h1>Kamisado</h1>
+			<h1>Kamisado</h1>
 
-				<h2>
-					{winner
-						? `${winner === 1 ? "Black" : "White"} wins!`
-						: `${gameState.getCurrentPlayer() === 1 ? "Black" : "White"}'s turn`}
-				</h2>
+			<h2>
+				{winner
+					? `${winner === 1 ? "Black" : "White"} wins!`
+					: `${gameState.getCurrentPlayer() === 1 ? "Black" : "White"}'s turn`}
+			</h2>
 
-				<div className="board-container">
-					<Board gameState={gameState} onMove={winner ? () => false : handleMove} />
+			<div className="game-container">
+				<Board
+					key={gameState.getMovesMade()}
+					gameState={gameState}
+					onMove={winner ? () => false : handleMove}
+				/>
+				<div className="game-status">
+					<div className="game-controls">
+						<button className="game-btn" onClick={handleReset}>
+							Reset
+						</button>
+					</div>
 				</div>
 			</div>
 		</>

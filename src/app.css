@@ -1,3 +1,10 @@
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 h1 {
 	font-size: 3.2rem;
 	font-weight: 700;
@@ -12,10 +19,43 @@ h2 {
 	margin: 2rem 0;
 }
 
-.board-container {
+.game-container {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+	max-height: 100vh;
+}
+
+.game-status {
+	width: 100%;
+	padding: 2rem 1rem;
+}
+
+.game-controls {
 	display: flex;
-	align-self: center;
 	justify-content: center;
+	gap: 1rem;
+}
+
+.game-btn {
+	border: 2px solid;
+	padding: 0.75rem 1.5rem;
+	border-radius: 5px;
+	font-size: 1.8rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	background-color: white;
+}
+
+.game-btn:hover {
+	transform: translateY(-2px);
+}
+
+.game-btn:active {
+	transform: translateY(0);
 }
 
 .board {
